@@ -1,0 +1,86 @@
+(include "widgets/desktop.yuck")
+(include "widgets/lock.yuck")
+
+(defwindow clock
+    :monitor 0
+    :geometry (geometry :x "410"
+                        :y "520px"
+                        :width "0px"
+                        :height "30px"
+                        :anchor "top right")
+    :stacking "bg"
+    :exclusive false
+    (clock)
+)
+
+(defwindow date
+	:monitor 0
+    :geometry (geometry :x "410"
+                        :y "600px"
+                        :width "0px"
+                        :height "30px"
+                        :anchor "top right")
+    :stacking "bg"
+    :exclusive false
+    (date)
+)
+
+
+(defwindow anniversary
+    :monitor 0
+    :geometry (geometry :x "410"
+                        :y "700px"
+                        :width "0px"
+                        :height "30px"
+                        :anchor "top right")
+    :stacking "bg"
+    :exclusive false
+    (anniversary)
+)
+
+(defwindow countdown
+    :monitor 0
+    :geometry (geometry :x "410px"
+                        :y "650px"
+                        :width "0px"
+                        :height "24px"
+                        :anchor "top right")
+    :stacking "bg"
+    :exclusive false
+    (countdown)
+)
+
+(defwindow bar
+    :monitor 0
+    :geometry (geometry :x "410px"
+                        :y "510px"
+                        :width "0px"
+                        :height "24px"
+                        :anchor "top right")
+    :stacking "bg"
+    :exclusive false
+    (bar)
+)
+
+(defwindow temp
+    :monitor 0
+    :geometry (geometry :x "700px"
+                        :y "30px"
+                        :width "0px"
+                        :height "0px"
+                        :anchor "top center")
+    :stacking "bg"
+    :exclusive false 
+    (temp_graph)
+)
+
+(defwindow lockscreen
+    :monitor 0
+    :geometry (geometry :x "100%"
+                        :y "100%"
+                        :anchor "top center")
+    :stacking "overlay"
+    :focusable "true"
+    :namespace "locked"
+    (locked)
+)

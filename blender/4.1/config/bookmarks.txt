@@ -1,0 +1,6 @@
+[Bookmarks]
+[Recent]
+/home/hexolexo/3d_Models/Learning/First_project/
+/home/hexolexo/3d_Models/Printing/custom/Props/
+!Home
+/home/hexolexo/

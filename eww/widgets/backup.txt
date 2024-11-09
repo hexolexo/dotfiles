@@ -1,0 +1,16 @@
+(defpoll anniversary :interval "10000s" "bash /home/$(whoami)/.config/eww/scripts/anniversary.sh 8-26 'Happy Anniversary' && echo ' '")
+(defpoll birthday :interval "10000s" "bash /home/$(whoami)/.config/eww/scripts/anniversary.sh 11-25 'Happy Birthday Jam'")
+
+(defwidget anniversary []
+	(eventbox
+       	(box :space-evenly "false" :orientation "v" :spacing "1"
+           	(box :space-evenly "false" :orientation "h" :spacing "1"
+                (label :text "E+J: " :class "anniversary")
+                (label :text anniversary :class "anniversary")
+                (label :text " | " :class "anniversary")
+                (label :text "Jam: " :class "anniversary")
+                (label :text birthday :class "anniversary")
+            )
+        )
+	 )
+)
