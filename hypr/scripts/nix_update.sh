@@ -14,7 +14,7 @@ while true; do
 done
 cd /home/$(whoami)/.config
 cp /home/$(whoami)/.bashrc /home/$(whoami)/.config/bashrc
-cp /etc/nixos/* /home/$(whoami)/.config/nixOS/.
+cp /etc/nixos/configuration.nix /home/$(whoami)/.config/nixOS/.
 git add .
 git commit
 git push -u origin main

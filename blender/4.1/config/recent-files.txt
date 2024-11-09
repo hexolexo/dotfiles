@@ -1,4 +1,0 @@
-/home/hexolexo/3d_Models/Learning/First_project/Barrel.blend
-/home/hexolexo/3d_Models/Learning/First_project/Crate.blend
-/home/hexolexo/3d_Models/Learning/First_project/untitled.blend
-/home/hexolexo/3d_Models/Learning/First_project/BrokenBarrel.blend
