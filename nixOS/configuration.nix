@@ -1,18 +1,18 @@
 { config, pkgs, ... }:
 
 let
-  unstable = import <nixos-unstable> { config = config.nixpkgs.config; }; # Allows unstable packages to be installed with unstable.<Package-Name>
+	unstable = import <nixos-unstable> { config = config.nixpkgs.config; }; # Allows unstable packages to be installed with unstable.<Package-Name>
 in
 {
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-      ./hosts.nix
-    ];
+	imports =
+		[ # Include the results of the hardware scan.
+			./hardware-configuration.nix
+			./hosts.nix
+		];
 
-  # Bootloader.
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
+	# Bootloader.
+	boot.loader.systemd-boot.enable = true;
+	boot.loader.efi.canTouchEfiVariables = true;
 
 	# Networking
 	networking = {
@@ -27,6 +27,7 @@ in
 		networkmanager.enable = true;
 	};
 
+	# DNS over HTTPS
 	services.dnscrypt-proxy2 = {
 		enable = true;
 		settings = {
@@ -47,9 +48,9 @@ in
 	    };
 	  };
 	
-	  systemd.services.dnscrypt-proxy2.serviceConfig = {
-	  StateDirectory = "dnscrypt-proxy";
-		};
+	systemd.services.dnscrypt-proxy2.serviceConfig = {
+		StateDirectory = "dnscrypt-proxy";
+	};
 
   # Set your time zone.
   time.timeZone = "Australia/Sydney";
@@ -72,16 +73,16 @@ in
     extraPortals = [ pkgs.xdg-desktop-portal-hyprland ];
   };
 
-  services = {
-  	printing.enable = false; # Intentionally Disabled
-	power-profiles-daemon.enable = true; # Power Optimisations
-  	xserver = {
-  		# GDM and Gnome # Might want to consider removing this for minimalism
-  		enable = true;
-  		displayManager.gdm.enable = true;
-  		#desktopManager.gnome.enable = true;
-  	};
-  };
+    services = {
+        printing.enable = false; # Intentionally Disabled
+        power-profiles-daemon.enable = true; # Power Optimisations
+  	    xserver = {
+  	        # GDM and Gnome # Might want to consider removing this for minimalism
+  	    	enable = true;
+  	    	displayManager.gdm.enable = true;
+            #desktopManager.gnome.enable = true;
+        };
+    };
 
   programs.hyprland.enable = true;
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
@@ -106,7 +107,6 @@ in
   };
   
   users.defaultUserShell = pkgs.bash;
-  environment.variables.EDITOR = "micro";
   users.users.hexolexo = {
     isNormalUser = true;
     description = "hexolexo";
@@ -127,7 +127,7 @@ in
 
   programs.neovim = {
     enable = true;
-    defaultEditor = false;
+    defaultEditor = true;
     vimAlias = true;
     viAlias = true;
   };
@@ -154,7 +154,7 @@ in
     rust-analyzer
     pkg-config
     nodejs_22
-    # clang # Not sure if I need this
+    clang # Required for rust compiling
 	openssl # for some rust packages
 
     ### Shells
