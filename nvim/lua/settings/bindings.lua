@@ -46,3 +46,8 @@ end)
 vim.keymap.set("n", "<leader>o", "<cmd>ObsidianFollowLink<CR>")
 vim.keymap.set("v", "<leader>w", [[y:%s/\V<C-r>"/[\[&\]\]/g<CR>]])
 
+--vim.keymap.set("n", "<c-n>", "<c-h><CR>")
+--vim.keymap.set("n", "<c-e>", "<c-k><CR>")
+--vim.keymap.set("n", "<c-i>", "<c-j><CR>")
+--vim.keymap.set("n", "<c-o>", "<c-l><CR>")
+

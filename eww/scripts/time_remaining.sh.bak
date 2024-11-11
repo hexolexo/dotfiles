@@ -1,0 +1,4 @@
+echo "This is a script for archival reasons"
+exit
+
+echo $(($(date -d "$(date +%Y-%m-%d) 21:30:00" +%s) - $(date +%s)))

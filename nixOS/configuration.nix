@@ -134,12 +134,10 @@ in
 
   nixpkgs.config.allowUnfree = true; # TODO: do something like the unstable packages to reduce unfree software on the system
   environment.systemPackages = with pkgs; [
-	# Code
+    # Development Tools
     micro
     git
-
-	## nvim
-	fzf
+    fzf
     universal-ctags
     silver-searcher
     python3
@@ -147,47 +145,44 @@ in
     ripgrep
     fd
     unzip
-    # TODO: Need to remove bloat
 
-    ## Languages
+    # Languages
     rustup
     rust-analyzer
     pkg-config
     nodejs_22
     clang # Required for rust compiling
-	openssl # for some rust packages
+    openssl # for some rust packages
 
-    ### Shells
-   	bash
-   	starship
-   	bat
-   	tree
-
-	# System
+    # Shells and Customization
+    bash
+    starship
+    bat
+    tree
+    
+    # System Tools
     btop
     fw-ectool
     pass
     gnupg
     pinentry-curses
-	pamixer
-	virt-manager
-	wl-clipboard-rs
-	dunst
-	libnotify
-	xdg-desktop-portal-hyprland
-	# expect # Not sure if I need this
-	openvpn # because the school proxy blocks ssh://github.com
-	nvd
-
-    ## Hyprland
+    pamixer
+    virt-manager
+    wl-clipboard-rs
+    dunst
+    libnotify
+    xdg-desktop-portal-hyprland
+    openvpn # for school proxy
+    nvd
+    
+    # Hyprland Specific Tools
     eww
     swaybg
     wofi
-   	# playerctl # useful for music
     brightnessctl
     swaylock-effects
     grimblast
-
+    
     # Fonts
     fira-code
   ];

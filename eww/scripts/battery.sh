@@ -1,14 +1,3 @@
-#!/bin/bash
-capacity=$(cat /sys/class/power_supply/BAT1/capacity)
-percentage=$((capacity * 100 / 70))
-is_charging=$(cat /sys/class/power_supply/ACAD/online)
-if (( is_charging == 1 )); then
-    echo "$percentage% | "
-    exit
-fi
-
-current=$(cat /sys/class/power_supply/BAT1/current_now)
-voltage=$(cat /sys/class/power_supply/BAT1/voltage_now)
-watt="$(((current * voltage) / (1000000 * 1000000)))W"
-
-echo "$percentage% | $watt | "
+readonly B="/sys/class/power_supply/BAT1";readonly AC_PATH="/sys/class/power_supply/ACAD/online";read -r S < "$B/capacity";read -r I < "$AC_PATH";P=$((S * 100 / 70));if (( I == 1 )); then
+    printf '%d%% | \n' "$P";exit
+fi;read -r C < "$B/current_now";read -r V < "$B/voltage_now";printf '%d%% | %dW |\n' "$P" "$((C * V / 1000000000000))"

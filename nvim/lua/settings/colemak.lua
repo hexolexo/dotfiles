@@ -23,8 +23,21 @@ keymap('n', 'l', 'u', { noremap = true })
 -- Include uppercase
 keymap('n', 'U', 'I', { noremap = true })
 
+-- Move in splits
+keymap('n', '<c-n>', '<c-w>h', { noremap = true })
+keymap('n', '<c-e>', '<c-w>k', { noremap = true })
+keymap('n', '<c-i>', '<c-w>j', { noremap = true })
+keymap('n', '<c-o>', '<c-w>l', { noremap = true })
 
 
+
+keymap('n', '<sc-n>', '<C-w>v<C-w>h', { noremap = true })
+keymap('n', '<sc-e>', '<C-w>s<C-w>k', { noremap = true })
+keymap('n', '<sc-i>', '<C-w>s<C-w>j', { noremap = true })
+keymap('n', '<sc-o>', '<C-w>v<C-w>l', { noremap = true })
+
+
+-- Create splits
 -- normal and visual
 -- n -> h
 -- e -> k
