@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# These need to be changed
+# These need to be changed based on what your VMs are called
 Hackingip="192.168.122.48"
 OSINTip="192.168.122.183"
 
@@ -71,7 +71,6 @@ osint_status=$(osint_is_up&)
 T2=$!
 wait $T1
 wait $T2
-
 case "$osint_status $hacking_status" in
     "false false")
         vm_startup
