@@ -1,90 +1,72 @@
 #!/bin/bash
 
 # These need to be changed based on what your VMs are called
-Hackingip="192.168.122.48"
-OSINTip="192.168.122.183"
+machineips=("192.168.122.48" "192.168.122.183")
+machineusernames=("hexo" "OSINT")
 
-hacking="ssh hexo@192.168.122.48"
-OSINT_Display="virt-manager --connect=qemu:///system --show-domain-console OSINT"
-OSINT="ssh osint@192.168.122.183"
-
-function hacking_is_up {
-	ping_result=$(ping -c 1 -W 1 "$Hackingip")
-	if [ $? -eq 0 ]; then
-	  echo true
-	else
-	  echo false
-	fi
+ssh_into_VM() {
+    local index=$(get_index "${machineusernames[@]}" "$vm_list")
+    local username=${machineusernames[$index]}
+    local ip=${machineips[$index]}
+    ssh $username@$ip
 }
 
-function osint_is_up {
-	ping_result=$(ping -c 1 -W 1 "$OSINTip")
-	if [ $? -eq 0 ]; then
-	  echo true
-	else
-	  echo false
-	fi
+get_index() {
+  local -a array=("$@")
+  local value="${array[-1]}"
+  unset 'array[-1]'
+
+  for ((i=0; i < ${#array[@]}; i++)); do
+    if [[ "${array[$i]}" == "$value" ]]; then
+      echo $i
+      return 0
+    fi
+  done
+
+  echo -1  # Return -1 if not found
 }
 
-function conflict {
-	echo "There is a conflict between the VMs please close one"
-	read -p "Shutdown a VM (H)acking, (O)SINT or (N)one: " choice
-	
-	case "$choice" in
-	    "h")
-	        sudo virsh shutdown "hexo"
-	        $OSINT
-	        ;;
-	    "o")
-	        sudo virsh shutdown "OSINT"
-	        $hacking
-	        ;;
-	    *)
-	        echo ""
-	        ;;
-	esac
-}
+# Check if default is running
+if [ -z "$(virsh --connect qemu:///system net-list | awk 'NR>2 {print $1}')" ]; then
+    printf "Virtual Network is not running\n Starting now\n"
+    virsh --connect qemu:///system net-start default
+fi
 
-function vm_startup {
-	read -p "Start a VM (H)acking, (O)SINT or (N)one: " choice
-	
-	case "$choice" in
-	    "h")
-	   		sudo virsh net-start default
-	        sudo virsh start "hexo"
-	        $hacking
-	        ;;
-	    "o")
-	    	sudo virsh net-start default
-	        sudo virsh start "OSINT"
-	        $OSINT_Display 
-	        ;;
-	    *)
-	        echo ""
-	        ;;
-	esac
-}
+vm_count=$(virsh --connect qemu:///system list | awk 'NR>2 {print $2}' | wc -l) # Why the fuck do these return different values
+vm_list=$(virsh --connect qemu:///system list | awk 'NR>2 {print $2}')
+# vm_count=$(echo $vm_list | wc -l) # WHY
 
-hacking_status=$(hacking_is_up&)
-T1=$!
-osint_status=$(osint_is_up&)
-T2=$!
-wait $T1
-wait $T2
-case "$osint_status $hacking_status" in
-    "false false")
-        vm_startup
-        ;;
-    "true false")
-    	$OSINT
-        ;;
-    "false true")
-        $hacking
-        ;;
-    "true true")
-        conflict
-        ;;
-    *)
-        echo "idk how you broke this but good job" && exit 1
-        ;;
-esac
+if [ "$(echo $vm_count)" -eq 1 ]; then
+    echo "Need to open a VM"
+    virsh --connect qemu:///system start $(gum choose ${machineusernames[*]})
+    echo "Wait for the VM to load"
+elif [ "$(echo $vm_count)" -eq 2 ]; then
+    ssh_into_VM
+else
+    while [ $(virsh --connect qemu:///system list | awk 'NR>2 {print $2}' | wc -l) -ne  2]
+    do
+        echo "You have 2 or more VMs running"
+        echo "Select the one you want to close"
+        virsh --connect qemu:///system shutdown $(gum choose $(virsh --connect qemu:///system list | awk 'NR>2 {print $2}')) 
+    done
+    ssh_into_VM
+fi
+
+
+
+printf "Warning this script is being worked on"
+exit
+# THIS IS UNREACHABLE BUT THINGS I"M KEEPING JUST IN CASE
+gum choose ${machineusernames[*]} # This works
+display="virt-manager --connect=qemu:///system --show-domain-console MACHINENAME"
+
+virsh --connect qemu:///system list | awk 'NR>2 {print $2}' # prints each active VM
+
+virsh --connect qemu:///system net-list | awk 'NR>2 {print $1}' # prints each active network 
+
+virsh --connect qemu:///system dominfo VMNAME | grep CPU\(s\) | awk '{print $2}' # prints the cores being used by the VM
+
+virsh --connect qemu:///system shutdown "OSINT" # Stops a VM
+
+virsh --connect qemu:///system start "OSINT" # Starts a VM
+

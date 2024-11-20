@@ -11,23 +11,30 @@ in
 		];
 
 	# Bootloader.
-	boot.loader.systemd-boot.enable = true;
-	boot.loader.efi.canTouchEfiVariables = true;
+    boot.loader.systemd-boot.enable = true;
+    boot.loader.efi.canTouchEfiVariables = true;
+    
+    # disable coredump that could be exploited later
+    # and also slow down the system when something crash
+    systemd.coredump.enable = false;
 
-	# Networking
-	networking = {
-		#networkmanager.dns = "none"; # Unset DNS
-		#nameservers = [ "127.0.0.1" "::1" ]; # Set DNS to Locally hosted
-		hostName = "hexolexo"; # Define your hostname.
-		firewall = {
-    		enable = true;
-    		# allowedTCPPorts = [ 8000 ]; # For rocket server
-  		};
-		# Enable networking
-		networkmanager.enable = true;
-	};
-
-	# DNS over HTTPS
+# Networking
+#	networking = {
+#		#networkmanager.dns = "none"; # Unset DNS
+#		#nameservers = [ "127.0.0.1" "::1" ]; # Set DNS to Locally hosted
+#		hostName = "hexolexo"; # Define your hostname.
+#		firewall = {
+#    		enable = true;
+#    		# allowedTCPPorts = [ 8000 ]; # For rocket server
+#            allowedTCPPorts = [];
+#            allowedUDPPorts = [];
+#
+#  		};
+#		# Enable networking
+#		networkmanager.enable = true;
+#	};
+#
+#	# DNS over HTTPS
 #	services.dnscrypt-proxy2 = {
 #		enable = true;
 #		settings = {
@@ -79,8 +86,9 @@ in
   	    xserver = {
   	        # GDM and Gnome # Might want to consider removing this for minimalism
   	    	enable = true;
+            excludePackages = [ pkgs.xterm ];
   	    	displayManager.gdm.enable = true;
-            #desktopManager.gnome.enable = true;
+            desktopManager.gnome.enable = true;
         };
     };
 
@@ -89,6 +97,7 @@ in
 
   virtualisation.libvirtd.enable = true;
   programs.virt-manager.enable = true;
+
 
   # Configure keymap in X11
   services.xserver.xkb = {
@@ -105,19 +114,22 @@ in
   	pulseaudio.support32Bit = true;
   	pulseaudio.package = pkgs.pulseaudioFull;
   };
-  
+   
+  programs.adb.enable = true;
+
   users.defaultUserShell = pkgs.bash;
   users.users.hexolexo = {
     isNormalUser = true;
     description = "hexolexo";
-    extraGroups = [ "networkmanager" "wheel" "audio" ]; # Suggested Groups: "dialout" "libvirtd"
+    extraGroups = [ "networkmanager" "wheel" "audio" "libvirtd" ]; # Suggested Groups: "dialout" "libvirtd" "adbusers"
     packages = with pkgs; [
-      obsidian
-      alacritty
-      floorp
-      # blender-hip # Currently not doing 3d modeling
-	  # cura
-	  duckdb # To replace: libreoffice-fresh: calc
+        floorp
+        obsidian # Try to get rid of this and replace it with neovim
+        alacritty 
+        # blender-hip # Currently not doing 3d modeling
+	    # cura
+	    duckdb # To replace: libreoffice-fresh: calc
+        fastfetch
     ];
   };
 
@@ -131,6 +143,13 @@ in
     vimAlias = true;
     viAlias = true;
   };
+
+    programs.firejail.enable = true;
+    
+  # enable antivirus clamav and
+  # keep the signatures' database updated
+  services.clamav.daemon.enable = true;
+  services.clamav.updater.enable = true;
 
   nixpkgs.config.allowUnfree = true; # TODO: do something like the unstable packages to reduce unfree software on the system
   environment.systemPackages = with pkgs; [
@@ -159,8 +178,10 @@ in
     starship
     bat
     tree
+    gum
     
     # System Tools
+    wireguard-tools
     btop
     fw-ectool
     pass
@@ -198,4 +219,7 @@ in
 
 
   system.stateVersion = "24.05"; # Don't change this dumbass
+  system.autoUpgrade = {
+      enable = true;
+  };
 }

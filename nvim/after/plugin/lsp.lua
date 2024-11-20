@@ -32,6 +32,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
 -- servers you have installed in your system
 
 require('lspconfig').rust_analyzer.setup({})
+require('lspconfig').bashls.setup{}
 -- require('lspconfig').lua_ls.setup({})
 
 local cmp = require('cmp')
