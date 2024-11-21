@@ -151,9 +151,9 @@ in
   services.clamav.daemon.enable = true;
   services.clamav.updater.enable = true;
 
-  nixpkgs.config.allowUnfree = true; # TODO: do something like the unstable packages to reduce unfree software on the system
-  environment.systemPackages = with pkgs; [
-    # Development Tools
+    nixpkgs.config.allowUnfree = true; # TODO: do something like the unstable packages to reduce unfree software on the system
+    environment.systemPackages = with pkgs; [
+        # Development Tools
     micro
     git
     fzf
@@ -164,6 +164,8 @@ in
     ripgrep
     fd
     unzip
+    local-ai
+    mods
 
     # Languages
     rustup
