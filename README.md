@@ -1,2 +1,2 @@
 # config
-Currently my neovim config is broken so you may want to remove that
+Should be able to use either `Scripts/apply_config.sh/` or `scripts/nixOS_apply_config.sh` to install quickly
