@@ -35,11 +35,13 @@
 
 (defpoll temp :interval "2s" "bash /home/$(whoami)/.config/eww/scripts/temp.sh")
 (defpoll battery_and_draw :interval "5s" "bash /home/$(whoami)/.config/eww/scripts/battery.sh")
+(defpoll network :interval "10s" "nmcli connection show --active | awk 'NR>1 {print $1 \" \"}' | head -n 1")
 
 (defwidget bar []
     (eventbox
         (box :space-evenly "false" :orientation "v" :spacing "1"
             (box :space-evenly "false" :orientation "h" :spacing "1"
+                (label :text network :class "bar")
                 (label :text battery_and_draw :class "bar")
                 (label :text temp :class "bar")
             )

@@ -171,9 +171,14 @@ in
     rustup
     rust-analyzer
     pkg-config
-    nodejs_22
     clang # Required for rust compiling
     openssl # for some rust packages
+    unstable.gleam # Seems like a fun experiment
+    unstable.erlang
+    unstable.rebar3
+    gcc # C and commond dependancy
+    go
+    gopls
 
     # Shells and Customization
     bash

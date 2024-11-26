@@ -1,5 +1,5 @@
--- Reserve a space in the gutter
-vim.opt.signcolumn = 'yes'
+--Reserve a space in the gutter
+-- vim.opt.signcolumn = 'yes'
 
 -- Add cmp_nvim_lsp capabilities settings to lspconfig
 -- This should be executed before you configure any language server
@@ -32,7 +32,8 @@ vim.api.nvim_create_autocmd('LspAttach', {
 -- servers you have installed in your system
 
 require('lspconfig').rust_analyzer.setup({})
-require('lspconfig').bashls.setup{}
+require('lspconfig').bashls.setup({})
+require('lspconfig').gopls.setup({})
 -- require('lspconfig').lua_ls.setup({})
 
 local cmp = require('cmp')
