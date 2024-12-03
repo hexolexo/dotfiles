@@ -17,7 +17,27 @@ in
     # disable coredump that could be exploited later
     # and also slow down the system when something crash
     systemd.coredump.enable = false;
+    security.sudo.extraRules= [
+    {
+        users = [ "hexolexo" ];
+        commands = [
+        { 
+            command = "/run/current-system/sw/bin/ectool --interface=lpc fanduty 100" ;
+            options= [ "NOPASSWD" ]; # "SETENV" # Adding the following could be a good idea
+        }
+        {
+            command = "/run/current-system/sw/bin/ectool --interface=lpc fanduty 40" ;
+            options= [ "NOPASSWD" ]; # "SETENV" # Adding the following could be a good idea
+        }
+        {
+            command = "/run/current-system/sw/bin/ectool --interface=lpc autofanctrl" ;
+            options= [ "NOPASSWD" ]; # "SETENV" # Adding the following could be a good idea
+        }
+        ];
+    }
+    ];
 
+	networking.hostName = "hexolexo"; # Define your hostname.
 # Networking
 #	networking = {
 #		#networkmanager.dns = "none"; # Unset DNS
@@ -107,9 +127,8 @@ in
 
   # Enable sound with pipewire. # TODO: find unused parts
   security.rtkit.enable = true;
-  sound.enable = true;
   hardware = {
-  	pulseaudio.enable = true;
+  	pulseaudio.enable = false;
   	bluetooth.enable = true;
   	pulseaudio.support32Bit = true;
   	pulseaudio.package = pkgs.pulseaudioFull;
@@ -124,12 +143,17 @@ in
     extraGroups = [ "networkmanager" "wheel" "audio" "libvirtd" ]; # Suggested Groups: "dialout" "libvirtd" "adbusers"
     packages = with pkgs; [
         floorp
-        obsidian # Try to get rid of this and replace it with neovim
+        obsidian
         alacritty 
+        libreoffice
         # blender-hip # Currently not doing 3d modeling
 	    # cura
 	    duckdb # To replace: libreoffice-fresh: calc
         fastfetch
+        thefuck
+        taskwarrior
+        tldr
+        navi
     ];
   };
 

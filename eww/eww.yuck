@@ -3,8 +3,8 @@
 
 (defwindow clock
     :monitor 0
-    :geometry (geometry :x "410"
-                        :y "520px"
+    :geometry (geometry :x "23.1%"
+                        :y "46.55%"
                         :width "0px"
                         :height "30px"
                         :anchor "top right")
@@ -15,8 +15,8 @@
 
 (defwindow date
 	:monitor 0
-    :geometry (geometry :x "410"
-                        :y "600px"
+    :geometry (geometry :x "23.1%"
+                        :y "51%"
                         :width "0px"
                         :height "30px"
                         :anchor "top right")
@@ -25,23 +25,10 @@
     (date)
 )
 
-
-(defwindow anniversary
-    :monitor 0
-    :geometry (geometry :x "410"
-                        :y "700px"
-                        :width "0px"
-                        :height "30px"
-                        :anchor "top right")
-    :stacking "bg"
-    :exclusive false
-    (anniversary)
-)
-
 (defwindow countdown
     :monitor 0
-    :geometry (geometry :x "410px"
-                        :y "650px"
+    :geometry (geometry :x "23.1%"
+                        :y "53.6%"
                         :width "0px"
                         :height "24px"
                         :anchor "top right")
@@ -52,8 +39,8 @@
 
 (defwindow bar
     :monitor 0
-    :geometry (geometry :x "410px"
-                        :y "510px"
+    :geometry (geometry :x "23.1%"
+                        :y "46%"
                         :width "0px"
                         :height "24px"
                         :anchor "top right")
