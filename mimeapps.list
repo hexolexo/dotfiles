@@ -9,6 +9,7 @@ application/x-extension-shtml=floorp.desktop
 application/xhtml+xml=floorp.desktop
 application/x-extension-xhtml=floorp.desktop
 application/x-extension-xht=floorp.desktop
+application/pdf=org.gnome.Evince.desktop
 
 [Added Associations]
 x-scheme-handler/http=floorp.desktop;
@@ -21,3 +22,4 @@ application/x-extension-shtml=floorp.desktop;
 application/xhtml+xml=floorp.desktop;
 application/x-extension-xhtml=floorp.desktop;
 application/x-extension-xht=floorp.desktop;
+application/pdf=org.gnome.Evince.desktop;

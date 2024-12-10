@@ -101,7 +101,7 @@ in
   };
 
     services = {
-        printing.enable = false; # Intentionally Disabled
+        printing.enable = true;# false; # Intentionally Disabled
         power-profiles-daemon.enable = true; # Power Optimisations
   	    xserver = {
   	        # GDM and Gnome # Might want to consider removing this for minimalism
@@ -172,8 +172,8 @@ in
     
   # enable antivirus clamav and
   # keep the signatures' database updated
-  services.clamav.daemon.enable = true;
-  services.clamav.updater.enable = true;
+  #services.clamav.daemon.enable = true;
+  #services.clamav.updater.enable = true;
 
     nixpkgs.config.allowUnfree = true; # TODO: do something like the unstable packages to reduce unfree software on the system
     environment.systemPackages = with pkgs; [
@@ -197,9 +197,7 @@ in
     pkg-config
     clang # Required for rust compiling
     openssl # for some rust packages
-    unstable.gleam # Seems like a fun experiment
-    unstable.erlang
-    unstable.rebar3
+    nodejs_23
     gcc # C and commond dependancy
     go
     gopls
@@ -210,6 +208,7 @@ in
     bat
     tree
     gum
+    zoxide
     
     # System Tools
     wireguard-tools
