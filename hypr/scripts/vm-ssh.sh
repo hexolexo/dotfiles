@@ -52,9 +52,6 @@ else
     ssh_into_VM
 fi
 
-
-
-printf "Warning this script is being worked on"
 exit
 # THIS IS UNREACHABLE BUT THINGS I"M KEEPING JUST IN CASE
 gum choose ${machineusernames[*]} # This works
@@ -70,3 +67,4 @@ virsh --connect qemu:///system shutdown "OSINT" # Stops a VM
 
 virsh --connect qemu:///system start "OSINT" # Starts a VM
 
+virsh list --all
