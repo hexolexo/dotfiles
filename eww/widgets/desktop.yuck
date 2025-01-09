@@ -24,7 +24,7 @@
 
 (defwidget countdown []
 	(eventbox
-       	(box :space-evenly "false" :orientation "v" :spacing "1"
+       	(box :space-evenly "false" :orientation "v" :spacing "1" :halign "end"
            	(box :space-evenly "false" :orientation "h" :spacing "1"
                 (label :text time_remaining :class "countdown")
                 (label :text "s" :class "countdown")
@@ -39,7 +39,7 @@
 
 (defwidget bar []
     (eventbox
-        (box :space-evenly "false" :orientation "v" :spacing "1"
+        (box :space-evenly "false" :orientation "v" :spacing "1" :halign "end"
             (box :space-evenly "false" :orientation "h" :spacing "1"
                 (label :text network :class "bar")
                 (label :text battery_and_draw :class "bar")

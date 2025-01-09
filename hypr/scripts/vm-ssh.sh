@@ -54,6 +54,9 @@ fi
 
 exit
 # THIS IS UNREACHABLE BUT THINGS I"M KEEPING JUST IN CASE
+
+vms=$(virsh --connect qemu:///system list --all | awk 'NR>2 {print $2}') && printf '%s\n' "$vms" | wofi --dmenu
+
 gum choose ${machineusernames[*]} # This works
 display="virt-manager --connect=qemu:///system --show-domain-console MACHINENAME"
 

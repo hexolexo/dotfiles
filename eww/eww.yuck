@@ -5,7 +5,7 @@
     :monitor 0
     :geometry (geometry :x "23.1%"
                         :y "46.55%"
-                        :width "0px"
+                        :width "1000px"
                         :height "30px"
                         :anchor "top right")
     :stacking "bg"
@@ -17,7 +17,7 @@
 	:monitor 0
     :geometry (geometry :x "23.1%"
                         :y "51%"
-                        :width "0px"
+                        :width "1000px"
                         :height "30px"
                         :anchor "top right")
     :stacking "bg"
@@ -29,7 +29,7 @@
     :monitor 0
     :geometry (geometry :x "23.1%"
                         :y "53.6%"
-                        :width "0px"
+                        :width "1000px"
                         :height "24px"
                         :anchor "top right")
     :stacking "bg"
@@ -40,8 +40,8 @@
 (defwindow bar
     :monitor 0
     :geometry (geometry :x "23.1%"
-                        :y "46%"
-                        :width "0px"
+                        :y "45%"
+                        :width "1000px"
                         :height "24px"
                         :anchor "top right")
     :stacking "bg"
@@ -49,17 +49,8 @@
     (bar)
 )
 
-(defwindow temp
-    :monitor 0
-    :geometry (geometry :x "700px"
-                        :y "30px"
-                        :width "0px"
-                        :height "0px"
-                        :anchor "top center")
-    :stacking "bg"
-    :exclusive false 
-    (temp_graph)
-)
+
+
 
 (defwindow lockscreen
     :monitor 0
